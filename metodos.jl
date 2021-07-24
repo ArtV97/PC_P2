@@ -1,4 +1,4 @@
-function euler(ta, tb, h, f::Function)
+function euler(ta, tb, h, y0, f::Function)
     N = 0 # qtd de passos ate chegar no final do intervalo
     for i in ta:h:tb
         N += 1
@@ -17,7 +17,7 @@ function euler(ta, tb, h, f::Function)
     return w
 end
 
-function rk_4ordem(ta, tb, h, f::Function)
+function rk_4ordem(ta, tb, h, y0, f::Function)
     N = 0 # qtd de passos ate chegar no final do intervalo
     for i in ta:h:tb
         N += 1
@@ -50,7 +50,7 @@ end
 # a2p1 = 1/2
 # a2q11 = 1/2
 
-function rk_2ordem(a2, h, ta, tb, f::Function)
+function rk_2ordem(a2, h, ta, tb, y0, f::Function)
     a1 = 1 - a2
     p1 = 0.5 / a2
     q11 = 0.5 / a2
