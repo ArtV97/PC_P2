@@ -1,7 +1,8 @@
 # Equacao do Burden
 module Burden
-    export ta, tb, y0, f, fy
+    export name, ta, tb, y0, f, fy
 
+    name = "Burden"
     ta = 0
     tb = 2
     y0 = 0.5
@@ -21,8 +22,9 @@ end
 
 # Equacao da Wikipedia
 module Wikipedia
-    export ta, tb, y0, f, fy
+    export name, ta, tb, y0, f, fy
 
+    name = "Wikipedia"
     ta = 0
     tb = 4
     y0 = 1
@@ -41,8 +43,9 @@ end
 
 # Equacao do Chapra
 module Chapra
-    export ta, tb, y0, f, fy
+    export name, ta, tb, y0, f, fy
 
+    name = "Chapra"
     ta = 0
     tb = 4
     y0 = 1
