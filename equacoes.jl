@@ -58,7 +58,7 @@ module Chapra
 
     # Solucao analitica
     function fy(t)
-        y = t^4 + 4 * t^3 - 10 * t^2 + 8.5 * t + 1
+        y = -0.5 * t^4 + 4 * t^3 - 10 * t^2 + 8.5 * t + 1
         return y
     end
 end
