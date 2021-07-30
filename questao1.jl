@@ -5,7 +5,7 @@ import .Metodos
 include("./equacoes.jl")
 import .Burden, .Wikipedia, .Chapra
 
-PATH = "results/"
+PATH = "questao1/"
 
 function h_plot(equation, h, file)
     N = 0 # qtd de passos ate chegar no final do intervalo
@@ -52,7 +52,7 @@ end
 # comparar com as solucoes analiticas
 # comparar com Euler explicito e rk_4ordem
 function main()
-    file = open(string(PATH, "tabela_questao1.txt"), "w")
+    file = open(string(PATH, "tabela.txt"), "w")
 
     # Burden
     write(file, "Burden\n")
