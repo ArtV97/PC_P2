@@ -34,7 +34,7 @@ function h_plot(equation, h, file, N = nothing)
 
     w_adams_moulton = Metodos.adams_moulton_4(h, N, t, equation.y0, equation.f)
     write(file, "Adams-Moulton 4 passos = $w_adams_moulton\n\n")
-    plot!(t, w_adams_moulton, marker=:circle, label="Adams M. 4 passos")
+    plot!(t, w_adams_moulton, marker=:circle, label="Adams M. 3 passos")
 
     filename = string(PATH, equation.name, "_h_", h, ".png")
     savefig(func, filename)

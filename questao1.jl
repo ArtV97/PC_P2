@@ -41,8 +41,8 @@ function h_plot(equation, h, file)
     plot!(t, w_euler, marker=:circle, label="Euler")
     
     w_rk4 = Metodos.rk_4ordem(h, N, t, equation.y0, equation.f)
-    write(file, "Runge Kutta 4 ordem = $w_rk4\n\n")
-    plot!(t, w_rk4, marker=:circle, label="rk 4 ordem")
+    write(file, "Runge-Kutta 4 ordem = $w_rk4\n\n")
+    plot!(t, w_rk4, marker=:circle, label="RK 4 ordem")
 
     filename = string(PATH, equation.name, "_h_", h, ".png")
     savefig(func, filename)

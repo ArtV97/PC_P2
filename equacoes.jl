@@ -67,6 +67,7 @@ module Questao3
     export name, y1_0, y2_0, f1, f2, fy
 
     name = "Questao3"
+    ta = 0
     y1_0 = 0
     y2_0 = 0
 
@@ -83,6 +84,6 @@ module Questao3
 
     # solucao analitica
     function fy(t)
-        return 0
+        return 1 - Base.cos(t)
     end
 end

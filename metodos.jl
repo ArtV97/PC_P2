@@ -1,6 +1,6 @@
 module Metodos
 
-    export analytic_solution, euler, rk_4ordem, rk_2ordem, adams_bashforth_4, adams_moulton_4
+    export analytic_solution, euler, rk_4ordem, rk_2ordem, adams_bashforth_4, adams_moulton_4, euler_sistema, rk_4ordem_sistema, adams_moulton_4_sistema
 
     function analytic_solution(ta, h, N, t::Array, fy::Function)        
         y = zeros(Float64, N)
@@ -129,4 +129,36 @@ module Metodos
 
         return w1,w2
     end
+
+    # Adams-Bashforth 4 ordem 4 passos
+    function adams_bashforth_4_sistema(h, N, t, y1_0, y2_0, f1::Function, f2::Function)
+        w1 = zeros(Float64, N)
+        w2 = zeros(Float64, N)
+        aux = rk_4ordem_sistema(h, 4, t, y1_0, y2_0, f1, f2)
+
+        for i in 1:4
+            w1[i] = aux[1][i]
+            w2[i] = aux[2][i]
+        end
+
+        for i in 4:N-1
+            w1[i+1] = w1[i] + (h/24) * (55*f1(t[i], w1[i], w2[i]) - 59*f1(t[i-1], w1[i-1], w2[i-1]) + 37*f1(t[i-2], w1[i-2], w2[i-2]) - 9*f1(t[i-3], w1[i-3], w2[i-3]))
+            w2[i+1] = w2[i] + (h/24) * (55*f2(t[i], w1[i], w2[i]) - 59*f2(t[i-1], w1[i-1], w2[i-1]) + 37*f2(t[i-2], w1[i-2], w2[i-2]) - 9*f2(t[i-3], w1[i-3], w2[i-3]))
+        end
+        
+        return w1,w2
+    end
+
+    # Adams-Moulton 4 ordem 3 passos
+    function adams_moulton_4_sistema(h, N, t, y1_0, y2_0, f1::Function, f2::Function)
+        w1,w2 = adams_bashforth_4_sistema(h, N, t, y1_0, y2_0, f1, f2) # predictor
+
+        for i in 3:N-1
+            w1[i+1] = w1[i] + (h/24) * (9*f1(t[i+1], w1[i+1], w2[i+1]) + 19*f1(t[i], w1[i], w2[i]) - 5*f1(t[i-1], w1[i-1], w2[i-1]) + f1(t[i-2], w1[i-2], w2[i-2]))
+            w2[i+1] = w2[i] + (h/24) * (9*f2(t[i+1], w1[i+1], w2[i+1]) + 19*f2(t[i], w1[i], w2[i]) - 5*f2(t[i-1], w1[i-1], w2[i-1]) + f2(t[i-2], w1[i-2], w2[i-2]))
+        end
+        
+        return w1,w2
+    end
+
 end
