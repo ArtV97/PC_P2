@@ -33,7 +33,7 @@ function h_plot(equation, h, file, N = nothing)
     plot!(t, w_adams_bashforth, marker=:circle, label="Adams B. 4 passos")
 
     w_adams_moulton = Metodos.adams_moulton_4(h, N, t, equation.y0, equation.f)
-    write(file, "Adams-Moulton 4 passos = $w_adams_moulton\n\n")
+    write(file, "Adams-Moulton 3 passos = $w_adams_moulton\n\n")
     plot!(t, w_adams_moulton, marker=:circle, label="Adams M. 3 passos")
 
     filename = string(PATH, equation.name, "_h_", h, ".png")
@@ -50,7 +50,7 @@ function main()
     h_plot(Burden, 0.5, file)
     h_plot(Burden, 0.1, file)
 
-    h_plot(Burden, 4.0, file, 10) # teste passo maior
+    h_plot(Burden, 2.1, file, 30) # teste passo maior
 
     # Wikipedia
     write(file, "\nWikipedia\n")
@@ -59,7 +59,7 @@ function main()
     h_plot(Wikipedia, 0.5, file)
     h_plot(Wikipedia, 0.1, file)
 
-    h_plot(Wikipedia, 4.0, file, 10) # teste passo maior
+    h_plot(Wikipedia, 2.1, file, 30) # teste passo maior
 
     # Chapra
     write(file, "\nChapra\n")
@@ -68,7 +68,7 @@ function main()
     h_plot(Chapra, 0.5, file)
     h_plot(Chapra, 0.1, file)
 
-    h_plot(Chapra, 12000.0, file, 10) # teste passo maior
+    h_plot(Chapra, 12000.0, file, 30) # teste passo maior
 
     close(file)
 
