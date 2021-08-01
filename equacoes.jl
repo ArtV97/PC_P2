@@ -62,3 +62,27 @@ module Chapra
         return y
     end
 end
+
+module Questao3
+    export name, y1_0, y2_0, f1, f2, fy
+
+    name = "Questao3"
+    y1_0 = 0
+    y2_0 = 0
+
+    # sistema de equacoes
+    # y1' =  y2
+    # y2' = 1 - y1
+    function f1(t, y1, y2)
+        return y2
+    end
+    
+    function f2(t, y1, y2)
+        return 1 - y1
+    end
+
+    # solucao analitica
+    function fy(t)
+        return 0
+    end
+end

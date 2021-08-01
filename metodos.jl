@@ -80,7 +80,7 @@ module Metodos
     end
 
     # Adams-Moulton 4 ordem 3 passos
-    function adams_moulton_3(h, N, t, y0, f::Function)
+    function adams_moulton_4(h, N, t, y0, f::Function)
         w = adams_bashforth_4(h, N, t, y0, f) # predictor
 
         for i in 3:N-1
@@ -90,4 +90,43 @@ module Metodos
         return w
     end
 
+    # SISTEMA DE EQUACOES
+    function euler_sistema(h, N, t, y1_0, y2_0, f1::Function, f2::Function)
+        w1 = zeros(Float64, N)
+        w1[1] = y1_0
+
+        w2 = zeros(Float64, N)
+        w2[1] = y2_0
+
+        for i=1:N-1
+            w1[i+1] = w1[i] + h*f1(t[i], w1[i], w2[i])
+            w2[i+1] = w2[i] + h*f2(t[i], w1[i], w2[i])
+        end
+
+        return w1,w2
+    end
+
+    function rk_4ordem_sistema(h, N, t, y1_0, y2_0, f1::Function, f2::Function)
+        w1 = zeros(Float64, N)
+        w1[1] = y1_0
+
+        w2 = zeros(Float64, N)
+        w2[1] = y2_0
+
+        for i=1:N-1
+            k1 = f1(t[i], w1[i], w2[i])
+            k2 = f1(t[i]+h/2, w1[i]+k1*h/2, w2[i]+k1*h/2)
+            k3 = f1(t[i]+h/2, w1[i]+k2*h/2, w2[i]+k2*h/2)
+            k4 = f1(t[i]+h, w1[i]+k3*h, w2[i]+k2*h/2)
+            w1[i+1] = w1[i] + h*(k1+2*k2+2*k3+k4)/6
+
+            k1 = f2(t[i], w1[i], w2[i])
+            k2 = f2(t[i]+h/2, w1[i]+k1*h/2, w2[i]+k1*h/2)
+            k3 = f2(t[i]+h/2, w1[i]+k2*h/2, w2[i]+k2*h/2)
+            k4 = f2(t[i]+h, w1[i]+k3*h, w2[i]+k3*h)
+            w2[i+1] = w2[i] + h*(k1+2*k2+2*k3+k4)/6
+        end
+
+        return w1,w2
+    end
 end
